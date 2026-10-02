@@ -1,0 +1,12 @@
+#!name=番茄小说福利自动领
+#!desc=去福利页手动点一次领取自动保存接口，之后每天9点尝试自动领取（字节签名可能过期需重抓）
+#!author=Rocky
+
+[Rewrite]
+^https?://[^/]*\.fqnovel\.com.*$ http-request script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@bc651653c360a602d8fd08de774135b41dd12ac7/loon/fanqie-fuli.js, tag=番茄福利抓取
+
+[Script]
+cron "0 9 * * *" script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@bc651653c360a602d8fd08de774135b41dd12ac7/loon/fanqie-fuli.js, tag=番茄福利领取
+
+[Mitm]
+hostname = *.fqnovel.com
