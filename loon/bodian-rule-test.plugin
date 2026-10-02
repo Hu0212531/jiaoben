@@ -1,0 +1,6 @@
+#!name=波点诊断-规则测试
+#!desc=测试插件Rule是否生效：把kuwo.cn全部REJECT。如果App打不开了=规则生效；如果App正常=规则没生效。测完即删
+#!author=Rocky
+
+[Rule]
+DOMAIN-SUFFIX,kuwo.cn,REJECT
