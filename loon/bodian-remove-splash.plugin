@@ -5,11 +5,15 @@
 # 原理：开屏广告展示前 App 会先请求广告配置接口，
 # 直接 reject 这些请求，App 取不到广告配置就会跳过开屏。
 # 规则只针对广告接口，播放、VIP 校验等接口不受影响。
+#
+# 注意：bd-api.kuwo.cn 的两条是按路径匹配，需要 Loon 的 MITM 生效
+# （设置里打开 MITM，并确认证书已信任）；mc.tencentmusic.com 是按域名整站拦截，
+# 不依赖 MITM 也能生效。
 
 [Rewrite]
 ^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ reject
 ^https?://bd-api\.kuwo\.cn/api/service/advert/config.*$ reject
-^https?://mc\.tencentmusic\.com/sdk/ad/.*$ reject
+^https?://mc\.tencentmusic\.com.*$ reject
 
 [Mitm]
 hostname = bd-api.kuwo.cn, mc.tencentmusic.com
