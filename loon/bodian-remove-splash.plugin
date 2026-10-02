@@ -1,6 +1,10 @@
 #!name=波点音乐去开屏广告
-#!desc=重写开屏弹窗接口返回，告诉App无弹窗可显示。独立插件，不影响VIP解锁插件
+#!desc=重写开屏弹窗接口返回去开屏；强制酷我域名走代理以便重写生效。独立插件，不影响VIP解锁插件
 #!author=Rocky
+
+[Rule]
+DOMAIN-SUFFIX,kuwo.cn,PROXY
+DOMAIN-SUFFIX,tencentmusic.com,PROXY
 
 [Rewrite]
 ^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@d9b5381510cb8432dca727ba3156062460256ef2/loon/bodian-no-popup.js, requires-body=true, tag=波点去开屏弹窗
