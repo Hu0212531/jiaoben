@@ -1,0 +1,12 @@
+#!name=波点诊断
+#!desc=诊断用：每分钟通知测试通道；命中弹窗接口也通知。测完即删
+#!author=Rocky
+
+[Rewrite]
+^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@8470d90b2258d2236ef3dca8f7aa50e204969054/loon/bodian-diag.js, requires-body=true, tag=诊断-弹窗
+
+[Script]
+cron "* * * * *" script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@8470d90b2258d2236ef3dca8f7aa50e204969054/loon/bodian-diag.js, tag=诊断-通知
+
+[Mitm]
+hostname = bd-api.kuwo.cn
