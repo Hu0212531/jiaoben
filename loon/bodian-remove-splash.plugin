@@ -3,7 +3,7 @@
 #!author=Rocky
 
 [Rewrite]
-^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@/loon/bodian-no-popup.js, requires-body=true, tag=波点去开屏弹窗
+^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@d9b5381510cb8432dca727ba3156062460256ef2/loon/bodian-no-popup.js, requires-body=true, tag=波点去开屏弹窗
 
 [Mitm]
 hostname = bd-api.kuwo.cn
