@@ -1,19 +1,12 @@
 #!name=波点音乐去开屏广告
-#!desc=拦截开屏广告及广告配置接口。独立插件，不修改、不影响波点音乐VIP解锁插件
+#!desc=重写开屏弹窗接口返回，告诉App无弹窗可显示。独立插件，不影响VIP解锁插件
 #!author=Rocky
 
-# 原理：开屏广告展示前 App 会先请求广告配置接口，
-# 直接 reject 这些请求，App 取不到广告配置就会跳过开屏。
-# 规则只针对广告接口，播放、VIP 校验等接口不受影响。
-#
-# 注意：bd-api.kuwo.cn 的两条是按路径匹配，需要 Loon 的 MITM 生效
-# （设置里打开 MITM，并确认证书已信任）；mc.tencentmusic.com 是按域名整站拦截，
-# 不依赖 MITM 也能生效。
+# v3 换思路：不再 reject 请求，而是改写 /api/popup/start/info 的返回，
+# 把 content.show 置为 false，App 走正常"无广告"分支直接进主界面。
 
 [Rewrite]
-^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ reject
-^https?://bd-api\.kuwo\.cn/api/service/advert/config.*$ reject
-^https?://mc\.tencentmusic\.com.*$ reject
+^https?://bd-api\.kuwo\.cn/api/popup/start/info.*$ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@61a8bd8d2f1b5cfdcd16cf0f03a66943165e2030/loon/bodian-no-popup.js, requires-body=true, tag=波点去开屏弹窗
 
 [Mitm]
-hostname = bd-api.kuwo.cn, mc.tencentmusic.com
+hostname = bd-api.kuwo.cn
