@@ -1,32 +1,33 @@
 /*
- * 酷狗音乐概念版自动签到领会员
+ * 酷狗音乐概念版自动签到领会员 v2
  *
  * 使用方法：
- * 1. 在 Loon 中添加本插件并确保开关是打开的，Loon 处于运行中（VPN 已连接）
- * 2. 确认 MITM 证书已安装并信任（否则脚本看不到 HTTPS 请求）
+ * 1. 在 Loon 中添加本插件并确保开关是打开的（注意：要加在当前正在使用的那份配置里）
+ * 2. iPhone 设置 → 通知 → Loon，通知权限要打开，否则抓到了也看不到提示
  * 3. 打开酷狗概念版 App，进入"天天签到领VIP"页，手动点一次签到
- * 4. 脚本自动抓取该请求的 Cookie 等信息并保存，通知提示"Cookie获取成功"
- * 5. 之后每天 9 点自动执行签到
+ * 4. 进页面 / 点签到时会自动抓取带 Cookie 的请求并保存，通知提示"Cookie获取成功"
+ * 5. 之后每天 9 点自动重放该请求执行签到
  *
- * 注意：Cookie 会过期，如果哪天签到失败，去 App 里再手动签到一次即可刷新。
+ * 注意：Cookie 会过期，哪天签到失败就去 App 里再手动签到一次刷新。
  */
 
 const KEY_URL = 'kugou_concept_signin_url';
 const KEY_HEADERS = 'kugou_concept_signin_headers';
 const KEY_BODY = 'kugou_concept_signin_body';
 const KEY_METHOD = 'kugou_concept_signin_method';
+const KEY_LAST_NOTIFY = 'kugou_concept_signin_last_notify';
 
-// 疑似签到/任务接口的 URL 关键字（命中则直接保存）
+// 疑似签到/任务接口的 URL 关键字（命中则在通知里标注出来）
 const SIGN_KEYWORDS = /sign|checkin|task|signin|daily/i;
 // 排除的静态资源后缀，避免保存图片/CSS/JS 请求
 const STATIC_EXT = /\.(png|jpg|jpeg|gif|webp|css|js|ico|svg|mp3|mp4)(\?|$)/i;
 
 function notify(title, subtitle, body) {
-  if (typeof $notification !== 'function' && typeof $notification === 'undefined') {
+  if (typeof $notification !== 'undefined' && typeof $notification.post === 'function') {
+    $notification.post(title, subtitle || '', body || '');
+  } else {
     console.log(`[${title}] ${subtitle || ''} ${body || ''}`);
-    return;
   }
-  $notification.post(title, subtitle || '', body || '');
 }
 
 function done(result) {
@@ -41,22 +42,29 @@ function captureMode() {
   // 排除静态资源
   if (STATIC_EXT.test(url)) return done({});
 
-  const isSignApi = SIGN_KEYWORDS.test(url);
-  // 签到动作通常是 POST；关键字命中则无论 GET/POST 都保存
-  const shouldCapture = isSignApi || method === 'POST';
+  const headers = $request.headers || {};
+  const cookie = headers['Cookie'] || headers['cookie'];
+  // 没有 Cookie 的请求抓了也没用，直接跳过（和之前能用的老脚本行为一致：进页面有 Cookie 才提示）
+  if (!cookie) return done({});
 
-  if (!shouldCapture) return done({});
-
+  const prevUrl = $persistentStore.read(KEY_URL);
   $persistentStore.write(url, KEY_URL);
-  $persistentStore.write(JSON.stringify($request.headers || {}), KEY_HEADERS);
+  $persistentStore.write(JSON.stringify(headers), KEY_HEADERS);
   $persistentStore.write($request.body || '', KEY_BODY);
   $persistentStore.write(method, KEY_METHOD);
 
-  notify(
-    '酷狗概念版签到',
-    'Cookie获取成功',
-    `已保存接口：${url.slice(0, 120)}`
-  );
+  // 只有"新接口"或距离上次提示超过 30 分钟才弹通知，避免刷屏
+  const now = Date.now();
+  const lastNotify = parseInt($persistentStore.read(KEY_LAST_NOTIFY) || '0', 10);
+  if (prevUrl !== url || now - lastNotify > 30 * 60 * 1000) {
+    const isSignApi = SIGN_KEYWORDS.test(url) || method === 'POST';
+    notify(
+      '酷狗概念版签到',
+      'Cookie获取成功',
+      isSignApi ? '已保存疑似签到接口，明天9点自动签到' : '已保存请求 Cookie，去活动页点一次签到可更新为签到接口'
+    );
+    $persistentStore.write(String(now), KEY_LAST_NOTIFY);
+  }
   done({});
 }
 
