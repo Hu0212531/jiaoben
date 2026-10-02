@@ -1,0 +1,10 @@
+#!name=酷狗概念版自动签到
+#!desc=酷狗音乐概念版每日自动签到领会员（需先抓包填写接口信息）
+#!author=Rocky
+#!icon=https://raw.githubusercontent.com/Hu0212531/jiaoben/main/loon/icon/kugou.png
+
+[Script]
+cron "0 9 * * *" script-path=https://raw.githubusercontent.com/Hu0212531/jiaoben/main/loon/kugou-concept-signin.js, tag=酷狗概念版签到
+
+[Mitm]
+hostname = *.kugou.com
