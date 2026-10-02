@@ -3,10 +3,10 @@
 #!author=Rocky
 
 [Rewrite]
-^https?://.*\.kugou\.com.*$ http-request script-path=https://raw.githubusercontent.com/Hu0212531/jiaoben/main/loon/kugou-concept-signin.js, tag=酷狗概念版Cookie抓取
+^https?://.*\.kugou\.com.*$ http-request script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@main/loon/kugou-concept-signin.js, tag=酷狗概念版Cookie抓取
 
 [Script]
-cron "0 9 * * *" script-path=https://raw.githubusercontent.com/Hu0212531/jiaoben/main/loon/kugou-concept-signin.js, tag=酷狗概念版签到
+cron "0 9 * * *" script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@main/loon/kugou-concept-signin.js, tag=酷狗概念版签到
 
 [Mitm]
 hostname = *.kugou.com
