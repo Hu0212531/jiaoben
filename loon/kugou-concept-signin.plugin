@@ -1,9 +1,9 @@
 #!name=酷狗概念版自动签到
-#!desc=首次去App活动页手动签到一次自动抓取Cookie，之后每天9点自动签到
+#!desc=进App点一次签到自动保存接口，之后每天9点自动签到（概念版用token鉴权）
 #!author=Rocky
 
 [Rewrite]
-^https?://.*\.kugou\.com.*$ http-request script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@main/loon/kugou-concept-signin.js, tag=酷狗概念版Cookie抓取
+^https?://gateway\.kugou\.com.*$ http-request script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@main/loon/kugou-concept-signin.js, tag=酷狗概念版签到抓取
 
 [Script]
 cron "0 9 * * *" script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@main/loon/kugou-concept-signin.js, tag=酷狗概念版签到
