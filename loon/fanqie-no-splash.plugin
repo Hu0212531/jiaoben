@@ -1,8 +1,7 @@
 #!name=番茄小说去开屏广告
-#!desc=屏蔽穿山甲广告域名。因SSL pinning无法MITM改写，只能阻断下载；预加载的存量广告需播完。独立插件
+#!desc=屏蔽穿山甲开屏广告域名（收窄版：只拦ads3/ads5，保留激励视频）。因SSL pinning无法改写，只能阻断
 #!author=Rocky
 
 [Rule]
 DOMAIN-SUFFIX,ads3-normal-lf.zijieapi.com,REJECT
 DOMAIN-SUFFIX,ads5-normal-lf.zijieapi.com,REJECT
-DOMAIN-KEYWORD,ads-normal,REJECT
