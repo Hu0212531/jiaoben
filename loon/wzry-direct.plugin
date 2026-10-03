@@ -1,0 +1,10 @@
+#!name=王者荣耀国内直连
+#!desc=腾讯系游戏域名强制直连，不走国外代理节点，降低游戏延迟
+#!author=Rocky
+
+[Rule]
+DOMAIN-SUFFIX,qq.com,DIRECT
+DOMAIN-SUFFIX,tencent.com,DIRECT
+DOMAIN-SUFFIX,gtimg.com,DIRECT
+DOMAIN-SUFFIX,qpic.cn,DIRECT
+DOMAIN-SUFFIX,tencentmusic.com,DIRECT
