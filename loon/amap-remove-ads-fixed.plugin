@@ -7,7 +7,7 @@
 # 匹配高德广告相关接口，交给脚本处理
 # 注意：把下面的 SCRIPT_URL 换成你自己的脚本地址
 #（把 amap-remove-ads-fixed.js 推到你的 GitHub 仓库后，用 jsDelivr 地址）
-^https?://([\w-]+\.)*amap\.com/(aos|boss|bus|c3frontend|faas|perception|promotion-web|shield|valueadded)/ - script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@4e125dd6a102e72d1631578691aa0e22b5fdc84f/loon/amap-remove-ads-fixed.js, requires-body=true, timeout=30, tag=高德去广告
+^https?://([\w-]+\.)*amap\.com/(aos|boss|bus|c3frontend|faas|perception|promotion-web|shield|valueadded)/ - script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@a94177e8357dd131ad91e5fbfe943f1a1ea1c2d3/loon/amap-remove-ads-fixed.js, requires-body=true, timeout=30, tag=高德去广告
 
 [Mitm]
 hostname = *.amap.com
