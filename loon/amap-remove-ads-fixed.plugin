@@ -3,7 +3,7 @@
 #!author=Rocky
 
 [Rewrite]
-^https?://([\w-]+\.)*amap\.com/(aos|boss|bus|c3frontend|faas|perception|promotion-web|shield|valueadded)/ - script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@a94177e8357dd131ad91e5fbfe943f1a1ea1c2d3/loon/amap-remove-ads-fixed.js, requires-body=true, timeout=30, tag=高德去广告
+^https?://([\w-]+\.)*amap\.com/(aos|boss|bus|c3frontend|faas|perception|promotion-web|shield|valueadded)/ http-response script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@a94177e8357dd131ad91e5fbfe943f1a1ea1c2d3/loon/amap-remove-ads-fixed.js, requires-body=true, timeout=30, tag=高德去广告
 
 [Mitm]
 hostname = *.amap.com
