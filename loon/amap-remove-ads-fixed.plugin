@@ -1,1 +1,13 @@
-IyFuYW1lPemrmOW+t+WcsOWbvuWOu+W5v+WRiu+8iOS/ruWkjeeJiO+8iQojIWRlc2M95Y676Zmk6auY5b635Zyw5Zu+5ZCE57G75bm/5ZGK77ybMjAyNi0xMC0wNCDkv67lpI0i5oiR55qEIumhtemdouivr+adgOato+W4uOWKn+iDveeahOmXrumimAojIWF1dGhvcj1SdUN1Nu+8iOWOn+eJiOiEmuacrO+8iS8gUm9ja3nvvIjkv67lpI3vvIkKIyFpY29uPWh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Lb29sc29uL1F1cmUvbWFzdGVyL0ljb25TZXQvQW1hcC5wbmcKCltSZXdyaXRlXQojIOWMuemFjemrmOW+t+W5v+WRiuebuOWFs+aOpeWPo++8jOS6pOe7meiEmuacrOWkhOeQhgojIOazqOaEj++8muaKiuS4i+mdoueahCBTQ1JJUFRfVVJMIOaNouaIkOS9oOiHquW3seeahOiEmuacrOWcsOWdgAoj77yI5oqKIGFtYXAtcmVtb3ZlLWFkcy1maXhlZC5qcyDmjqjliLDkvaDnmoQgR2l0SHViIOS7k+W6k+WQju+8jOeUqCBqc0RlbGl2ciDlnLDlnYDvvIkKXmh0dHBzPzovLyhbXHctXStcLikqYW1hcFwuY29tLyhhb3N8Ym9zc3xidXN8YzNmcm9udGVuZHxmYWFzfHBlcmNlcHRpb258cHJvbW90aW9uLXdlYnxzaGllbGR8dmFsdWVhZGRlZCkvIC0gc2NyaXB0LXBhdGg9aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL0h1MDIxMjUzMS9qaWFvYmVuQDRlMTI1ZGQ2YTEwMmU3MmQxNjMxNTc4NjkxYWEwZTIyYjVmZGM4NGYvbG9vbi9hbWFwLXJlbW92ZS1hZHMtZml4ZWQuanMsIHJlcXVpcmVzLWJvZHk9dHJ1ZSwgdGltZW91dD0zMCwgdGFnPemrmOW+t+WOu+W5v+WRigoKW01pdG1dCmhvc3RuYW1lID0gKi5hbWFwLmNvbQo=
+#!name=高德地图去广告（修复版）
+#!desc=去除高德地图各类广告；2026-10-04 修复"我的"页面误杀正常功能的问题
+#!author=RuCu6（原版脚本）/ Rocky（修复）
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Amap.png
+
+[Rewrite]
+# 匹配高德广告相关接口，交给脚本处理
+# 注意：把下面的 SCRIPT_URL 换成你自己的脚本地址
+#（把 amap-remove-ads-fixed.js 推到你的 GitHub 仓库后，用 jsDelivr 地址）
+^https?://([\w-]+\.)*amap\.com/(aos|boss|bus|c3frontend|faas|perception|promotion-web|shield|valueadded)/ - script-path=https://cdn.jsdelivr.net/gh/Hu0212531/jiaoben@4e125dd6a102e72d1631578691aa0e22b5fdc84f/loon/amap-remove-ads-fixed.js, requires-body=true, timeout=30, tag=高德去广告
+
+[Mitm]
+hostname = *.amap.com
