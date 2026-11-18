@@ -9,10 +9,17 @@ DOMAIN,qzs.qq.com,REJECT
 DOMAIN,otheve.beacon.qq.com,REJECT
 DOMAIN,tdid.m.qq.com,REJECT
 DOMAIN,union.eff.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+DOMAIN-SUFFIX,gdtimg.com,REJECT
 DOMAIN-SUFFIX,snssdk.com,REJECT
 DOMAIN-SUFFIX,pangle.cn,REJECT
 DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com,REJECT
 DOMAIN,ad.toutiao.com,REJECT
+DOMAIN,phoniex.toutiao.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,ctobsnssdk.com,REJECT
 DOMAIN-SUFFIX,oceanengine.com,REJECT
 DOMAIN,scc.bytedance.com,REJECT
 DOMAIN,union.baidu.com,REJECT
