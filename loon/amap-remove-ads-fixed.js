@@ -285,6 +285,50 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
       }
     }
   }
+  // 隐藏首页底部导航的"探索"和"长按说话"两个 tab（2026-11-18）
+  // amapHomeTabConfig 是 AOCS 下发的首页 tab 配置，value 是 JSON 字符串；
+  // 服务器只在配置变更时才下发完整 value，平时返回空值（用 App 本地缓存），
+  // 所以本过滤只在服务器下发新配置时生效，生效前需等配置刷新或清 App 数据。
+  const tabCfg = obj?.data?.amapHomeTabConfig;
+  if (tabCfg && typeof tabCfg.value === "string" && tabCfg.value.length > 0) {
+    try {
+      const cfg = JSON.parse(tabCfg.value);
+      const hideKeys = ["探索", "长按说话", "explore", "voice", "globalvoice", "longpress", "long_press"];
+      const tabIdFields = ["tabName", "tabTitle", "tabId", "tabType", "name", "title", "id", "key"];
+      const isHideTab = (t) => {
+        if (!t || typeof t !== "object") return false;
+        // 只有看起来像 tab 的对象才参与判断
+        if (!tabIdFields.some((f) => typeof t[f] === "string")) return false;
+        const s = tabIdFields
+          .map((f) => t[f])
+          .filter((x) => typeof x === "string")
+          .join(" ")
+          .toLowerCase();
+        return hideKeys.some((k) => s.includes(k.toLowerCase()));
+      };
+      const walk = (node) => {
+        if (Array.isArray(node)) {
+          const filtered = node.filter((it) => !isHideTab(it));
+          if (filtered.length !== node.length && filtered.length > 0) {
+            node.length = 0;
+            node.push(...filtered);
+          }
+          node.forEach(walk);
+        } else if (node && typeof node === "object") {
+          // selectedIndex 若指向被删的 tab，钳制到合法范围
+          if (typeof node.selectedIndex === "number" && Array.isArray(node.tabs)) {
+            if (node.selectedIndex >= node.tabs.length) node.selectedIndex = 0;
+          }
+          if (typeof node.selectedIndex === "number" && Array.isArray(node.tabList)) {
+            if (node.selectedIndex >= node.tabList.length) node.selectedIndex = 0;
+          }
+          Object.values(node).forEach(walk);
+        }
+      };
+      walk(cfg);
+      tabCfg.value = JSON.stringify(cfg);
+    } catch (e) {}
+  }
 } else if (url.includes("/shield/search/common/coupon/info")) {
   if (obj?.data) {
     obj.data = {};
