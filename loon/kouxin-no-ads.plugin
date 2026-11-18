@@ -1,5 +1,5 @@
 #!name=口信去广告
-#!desc=屏蔽口信 App 的开屏、名片主页与信息流广告。口信内嵌三家广告 SDK：腾讯优量汇 GDT、字节穿山甲 Pangle、百度联盟，外加 y5kfpt 归因与拼多多 DSP。只拦广告域名，不动口信自己的接口，聊天与好友功能不受影响。
+#!desc=屏蔽口信 App 的开屏、名片主页与信息流广告。口信内嵌三家广告 SDK：腾讯优量汇 GDT、字节穿山甲 Pangle、百度联盟，外加 wkanx 广告聚合平台、y5kfpt 归因与拼多多 DSP。只拦广告域名，不动口信自己的接口，聊天与好友功能不受影响。
 #!author=Rocky
 
 [Rule]
@@ -11,9 +11,12 @@ DOMAIN,tdid.m.qq.com,REJECT
 DOMAIN,union.eff.qq.com,REJECT
 DOMAIN-SUFFIX,snssdk.com,REJECT
 DOMAIN-SUFFIX,pangle.cn,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN,ad.toutiao.com,REJECT
 DOMAIN-SUFFIX,oceanengine.com,REJECT
 DOMAIN,scc.bytedance.com,REJECT
 DOMAIN,union.baidu.com,REJECT
+DOMAIN-SUFFIX,wkanx.com,REJECT
 DOMAIN-SUFFIX,y5kfpt.com,REJECT
 DOMAIN,t-dsp.pinduoduo.com,REJECT
 DOMAIN,video-dsp.pddpic.com,REJECT
